@@ -15,7 +15,7 @@ __pycache__/
 db.sqlite3
 media/
 staticfiles/
-
+Config.py
 # Django migrations cache
 */migrations/__pycache__/
 */migrations/*.py[cod]
