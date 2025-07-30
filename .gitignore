@@ -1,0 +1,73 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Django-specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.mo
+db.sqlite3
+media/
+staticfiles/
+
+# Django migrations cache
+*/migrations/__pycache__/
+*/migrations/*.py[cod]
+
+# Environment variables
+.env
+.env.*
+
+# Local settings and secrets
+settings_local.py
+secrets.json
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+.Python
+
+# Linux system files
+*~
+.cache/
+.Trash-*/
+
+# IDEs and editors
+.vscode/
+.idea/
+
+# MyPy, Pytest, Coverage
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Lock files
+Pipfile.lock
+poetry.lock
+
+# Celery task queue files
+celerybeat-schedule
+celerybeat.pid
+
+# Gunicorn/PID files
+*.pid
+*.pid.lock
