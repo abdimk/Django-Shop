@@ -1,7 +1,7 @@
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import get_object_or_404
-from api.serializers import ProductSerializer
-from api.models import Product
+from api.serializers import *
+from api.models import Product,Order
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
@@ -19,11 +19,11 @@ def product(request, id):
     serialized_single_product = ProductSerializer(single_product)
     return Response(serialized_single_product.data)
 
- 
-
-
-
-
+@api_view(['GET'])
+def order_list(request):
+    orders = Order.objects.all()
+    order_serializer = OrderSerializer(orders, many=True)
+    return Response(order_serializer.data)
 
 
 
