@@ -1,7 +1,7 @@
 # Django Rest FrameWork Generic Template 
 
 This is a generic template for DRF Api using typical Product-Order example !
-## ✨ Key Features
+## ✨ Features
 
 - **Added Models**: Product, Order and OrderItems models 
 - **Serializers**: Serializer for the models and nested serializers added

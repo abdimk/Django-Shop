@@ -1,7 +1,12 @@
 import uuid
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+
+
+#time_str = "2025-08-13 14:30:00"
+#custom_datetime = datetime.strftime(time_str, "%Y-%m-%d %H:%M:%S")
 
 
 # User models
