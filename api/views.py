@@ -5,27 +5,51 @@ from api.serializers import *
 from api.models import Product,Order
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import generics
+
+# @api_view(['GET'])
+# def product_list(request):
+#     products = Product.objects.all()
+#     serialized_products = ProductSerializer(products, many=True)
+
+#     return Response(serialized_products.data)
 
 
-@api_view(['GET'])
-def product_list(request):
-    products = Product.objects.all()
-    serialized_products = ProductSerializer(products, many=True)
-
-    return Response(serialized_products.data)
+class ProductListAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.exclude(stock__gt=0)
+    serializer_class = ProductSerializer
 
 
-@api_view(['GET'])
-def product(request, id):
-    single_product = get_object_or_404(Product, id=id)
-    serialized_single_product = ProductSerializer(single_product)
-    return Response(serialized_single_product.data)
 
-@api_view(['GET'])
-def order_list(request):
-    orders = Order.objects.prefetch_related('items__product')
-    order_serializer = OrderSerializer(orders, many=True)
-    return Response(order_serializer.data)
+# @api_view(['GET'])
+# def product(request, id):
+#     single_product = get_object_or_404(Product, id=id)
+#     serialized_single_product = ProductSerializer(single_product)
+#     return Response(serialized_single_product.data)
+
+class ProductDetailAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    # lookup_field = 'pk'
+    
+
+
+
+
+# @api_view(['GET'])
+# def order_list(request):
+#     orders = Order.objects.prefetch_related('items__product')
+#     order_serializer = OrderSerializer(orders, many=True)
+#     return Response(order_serializer.data)
+
+class OrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items_product')
+    serializer_class = OrderSerializer
+
+
+
+
+  
 
 @api_view(['GET'])
 def product_info(request):
