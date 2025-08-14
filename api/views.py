@@ -76,5 +76,3 @@ def product_info(request):
     })
     return Response(product_info.data)
 
-
-
