@@ -43,13 +43,28 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 #     return Response(order_serializer.data)
 
 class OrderListAPIView(generics.ListAPIView):
-    queryset = Order.objects.prefetch_related('items_product')
+    queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
 
 
+class UserOrderListAPIView(generics.ListAPIView):
+    queryset = Order.objects.prefetch_related('items__product')
+    serializer_class = OrderSerializer
 
 
-  
+    """
+    Dynamic filtering in get queryset method
+    if you have a dynamic data such as a user account and if you want to fetch
+    data assocated with it you can you this
+
+    You can overried get queryset method like this
+    """
+    def get_queryset(self):
+        user = self.request.user
+        qs = super().get_queryset()
+        return qs.filter(user=self.request.user)
+    
+
 
 @api_view(['GET'])
 def product_info(request):
@@ -60,7 +75,6 @@ def product_info(request):
         'max_price':products.aggregate(max_price=Max('price'))['max_price']
     })
     return Response(product_info.data)
-
 
 
 
