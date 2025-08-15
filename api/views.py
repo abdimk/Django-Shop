@@ -5,6 +5,7 @@ from api.serializers import *
 from api.models import Product,Order
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
 # @api_view(['GET'])
@@ -50,6 +51,8 @@ class OrderListAPIView(generics.ListAPIView):
 class UserOrderListAPIView(generics.ListAPIView):
     queryset = Order.objects.prefetch_related('items__product')
     serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
 
 
     """
@@ -75,4 +78,4 @@ def product_info(request):
         'max_price':products.aggregate(max_price=Max('price'))['max_price']
     })
     return Response(product_info.data)
-
+    
