@@ -7,6 +7,8 @@ This is a generic template for DRF Api using typical Product-Order example !
 - **Serializers**: Serializer for the models and nested serializers added
 - **Class Based Views**:Included both function based views and class based views
 - **Silk Request Monitoring**:Include silk for request monitoring
+- **Permisions and Testing Permissions**:To check and give response for unauthenticated request
+
 
 
 
