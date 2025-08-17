@@ -1,3 +1,4 @@
+from typing import override
 from django.db.models import Max
 from django.http import JsonResponse,HttpResponse
 from django.shortcuts import get_object_or_404
@@ -17,10 +18,14 @@ from rest_framework.views import APIView
 #     return Response(serialized_products.data)
 
 
-class ProductListAPIView(generics.ListCreateAPIView):
-    queryset = Product.objects.exclude(stock__gt=0)
-    serializer_class = ProductSerializer
+# class ProductListAPIView(generics.ListCreateAPIView):
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
 
+
+class ProductListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
 
 
 # @api_view(['GET'])
@@ -29,12 +34,23 @@ class ProductListAPIView(generics.ListCreateAPIView):
 #     serialized_single_product = ProductSerializer(single_product)
 #     return Response(serialized_single_product.data)
 
+
+class ProductCreateAPIView(generics.CreateAPIView):
+    # queryset = Product.objects.exclude(stock__gt=0)
+    model = Product
+    serializer_class = ProductSerializer
+    
+    @override
+    def create(self, request, *args, **kwargs):
+        # request.data < the post data >
+        return super().create(request, *args, **kwargs)
+    
+
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # lookup_field = 'pk'
     
-
 
 
 
@@ -79,6 +95,7 @@ class ProductInfoAPIView(APIView):
             'max_price':products.aggregate(max_price=Max('price'))['max_price']
         })
         return Response(product_info.data)
+ 
 
 
 
